@@ -1,5 +1,6 @@
 import express, { Application } from 'express';
 import { PrismaClient } from '@prisma/client';
+import { setupSwagger } from './config/swagger';
 import userRoute from './modules/users/userRoute';
 
 const app: Application = express();
@@ -7,6 +8,7 @@ const prisma = new PrismaClient();
 
 // Middleware
 app.use(express.json());
+setupSwagger(app);
 
 app.use('/users', userRoute);
 
