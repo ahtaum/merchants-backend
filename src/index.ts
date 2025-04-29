@@ -2,6 +2,8 @@ import express, { Application } from 'express';
 import { PrismaClient } from '@prisma/client';
 import { setupSwagger } from './config/swagger';
 import userRoute from './modules/users/userRoute';
+import merchantRoute from './modules/merchants/merchantRoute'
+import productRoute from './modules/products/productRoute'
 import authRoute from './modules/auth/authRoute';
 
 const app: Application = express();
@@ -13,6 +15,8 @@ setupSwagger(app);
 
 app.use('/auth', authRoute);
 app.use('/users', userRoute);
+app.use('/merchants', merchantRoute);
+app.use('/products', productRoute);
 
 const PORT = process.env.PORT || 8080;
 const server = app.listen(PORT, () => {
