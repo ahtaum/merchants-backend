@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { authenticateToken } from "../../middleware/authMiddleware";
 import { showAllUsers, showUserById, createNewUser, updateUserData, deleteUserData } from "./controllers/userController";
 
 const router = Router();
@@ -13,7 +14,7 @@ const router = Router();
  *       200:
  *         description: List semua pengguna
  */
-router.get('/', showAllUsers);
+router.get('/', authenticateToken, showAllUsers);
 
 /**
  * @swagger
@@ -33,7 +34,7 @@ router.get('/', showAllUsers);
  *       404:
  *         description: Pengguna tidak ditemukan
  */
-router.get('/:id', showUserById);
+router.get('/:id', authenticateToken, showUserById);
 
 /**
  * @swagger
@@ -58,7 +59,7 @@ router.get('/:id', showUserById);
  *       201:
  *         description: Pengguna berhasil dibuat
  */
-router.post('/add', createNewUser);
+router.post('/add', authenticateToken, createNewUser);
 
 /**
  * @swagger
@@ -89,7 +90,7 @@ router.post('/add', createNewUser);
  *       200:
  *         description: Data pengguna berhasil diupdate
  */
-router.patch('/update/:id', updateUserData);
+router.patch('/update/:id', authenticateToken, updateUserData);
 
 
 /**
@@ -108,6 +109,6 @@ router.patch('/update/:id', updateUserData);
  *       204:
  *         description: Data pengguna berhasil dihapus
  */
-router.delete('/delete/:id', deleteUserData);
+router.delete('/delete/:id', authenticateToken, deleteUserData);
 
 export default router;

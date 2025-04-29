@@ -10,13 +10,19 @@ const options: swaggerJSDoc.Options = {
       version: '1.0.0',
       description: 'Simple CRUD API with Express and Prisma',
     },
-    servers: [
-      {
-        url: 'http://localhost:8080',
+    servers: [{ url: 'http://localhost:8080' }],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
       },
-    ],
+    },
+    security: [{ bearerAuth: [] }],
   },
-  apis: ['./src/modules/users/*.ts'],
+  apis: ['./src/modules/**/*.ts'],
 };
 
 const swaggerSpec = swaggerJSDoc(options);

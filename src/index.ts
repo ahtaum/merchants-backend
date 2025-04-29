@@ -2,6 +2,7 @@ import express, { Application } from 'express';
 import { PrismaClient } from '@prisma/client';
 import { setupSwagger } from './config/swagger';
 import userRoute from './modules/users/userRoute';
+import authRoute from './modules/auth/authRoute';
 
 const app: Application = express();
 const prisma = new PrismaClient();
@@ -10,6 +11,7 @@ const prisma = new PrismaClient();
 app.use(express.json());
 setupSwagger(app);
 
+app.use('/auth', authRoute);
 app.use('/users', userRoute);
 
 const PORT = process.env.PORT || 8080;
